@@ -25,7 +25,7 @@ resource "aws_elb" "balancer" {
     instance_port      = "${var.instance_port}"
     instance_protocol  = "${var.instance_protocol}"
     lb_port            = 443
-    lb_protocol        = "tcp"
+    lb_protocol        = "ssl"
     ssl_certificate_id = "${var.ssl_certificate_id}"
   }
 }
