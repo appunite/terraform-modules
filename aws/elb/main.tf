@@ -31,7 +31,7 @@ resource "aws_elb" "balancer" {
 }
 
 resource "aws_elb_attachment" "instances" {
-  count = "${count(var.instances)}"
+  count = "${length(var.instances)}"
 
   elb = "${aws_elb.balancer.id}"
   instance = "${var.instances[count.index]}"
