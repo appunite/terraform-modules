@@ -9,7 +9,7 @@ variable "public_subnets" {
 variable "instance_port" {}
 
 variable "instance_protocol" {
-  default = "tls"
+  default = "TCP"
 }
 
 variable "health_check_target" {}
