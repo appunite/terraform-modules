@@ -30,6 +30,13 @@ resource "aws_elb" "balancer" {
   }
 }
 
+resource "aws_elb_attachment" "instances" {
+  count = "${count(var.instances)}"
+
+  elb = "${aws_elb.balancer.id}"
+  instance = "${var.instances[count.index]}"
+}
+
 resource "aws_proxy_protocol_policy" "websockets" {
   load_balancer  = "${aws_elb.balancer.name}"
   instance_ports = ["${var.instance_port}"]

@@ -15,3 +15,7 @@ variable "instance_protocol" {
 variable "health_check_target" {}
 
 variable "ssl_certificate_id" {}
+
+variable "instances" {
+  type = "list"
+}
