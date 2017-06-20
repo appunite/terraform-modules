@@ -1,5 +1,5 @@
 resource "aws_elb" "balancer" {
-  name            = "onemedical-cluster-elb"
+  name            = "${var.name}"
   subnets         = ["${var.public_subnets}"]
   security_groups = ["${aws_security_group.elb.id}"]
 
@@ -59,12 +59,4 @@ resource "aws_security_group" "elb" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
-}
-
-output "elb_zone_id" {
-  value = "${aws_elb.balancer.zone_id}"
-}
-
-output "elb_dns_name" {
-  value = "${aws_elb.balancer.dns_name}"
 }

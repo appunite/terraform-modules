@@ -1,5 +1,7 @@
 variable "vpc_id" {}
 
+variable "name" {}
+
 variable "public_subnets" {
   type = "list"
 }
