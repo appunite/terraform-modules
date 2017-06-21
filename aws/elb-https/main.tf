@@ -37,10 +37,10 @@ resource "aws_elb_attachment" "instances" {
   instance = "${var.instances[count.index]}"
 }
 
-/* resource "aws_proxy_protocol_policy" "websockets" { */
-/*   load_balancer  = "${aws_elb.balancer.name}" */
-/*   instance_ports = ["${var.instance_port}"] */
-/* } */
+resource "aws_proxy_protocol_policy" "websockets" {
+  load_balancer  = "${aws_elb.balancer.name}"
+  instance_ports = ["${var.instance_port}"]
+}
 
 resource "aws_security_group" "elb" {
   vpc_id = "${var.vpc_id}"
