@@ -16,7 +16,7 @@ resource "aws_elb" "balancer" {
 
   listener {
     instance_port     = "${var.instance_port}"
-    instance_protocol = "${var.instance_protocol}"
+    instance_protocol = "http"
     lb_port           = 80
     lb_protocol       = "http"
   }
