@@ -15,13 +15,6 @@ resource "aws_elb" "balancer" {
   }
 
   listener {
-    instance_port     = "${var.instance_port}"
-    instance_protocol = "${var.instance_protocol}"
-    lb_port           = 80
-    lb_protocol       = "tcp"
-  }
-
-  listener {
     instance_port      = "${var.instance_port}"
     instance_protocol  = "${var.instance_protocol}"
     lb_port            = 443
