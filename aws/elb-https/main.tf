@@ -21,6 +21,13 @@ resource "aws_elb" "balancer" {
     lb_protocol        = "ssl"
     ssl_certificate_id = "${var.ssl_certificate_id}"
   }
+
+  listener {
+    instance_port      = "${var.instance_port}"
+    instance_protocol  = "${var.instance_protocol}"
+    lb_port            = 80
+    lb_protocol        = "tcp"
+  }
 }
 
 resource "aws_elb_attachment" "instances" {
@@ -30,10 +37,10 @@ resource "aws_elb_attachment" "instances" {
   instance = "${var.instances[count.index]}"
 }
 
-resource "aws_proxy_protocol_policy" "websockets" {
-  load_balancer  = "${aws_elb.balancer.name}"
-  instance_ports = ["${var.instance_port}"]
-}
+/* resource "aws_proxy_protocol_policy" "websockets" { */
+/*   load_balancer  = "${aws_elb.balancer.name}" */
+/*   instance_ports = ["${var.instance_port}"] */
+/* } */
 
 resource "aws_security_group" "elb" {
   vpc_id = "${var.vpc_id}"
