@@ -6,7 +6,8 @@ variable "public_subnets" {
   type = "list"
 }
 
-variable "instance_port" {}
+variable "instance_http_port" {}
+variable "instance_https_port" {}
 
 variable "instance_protocol" {
   default = "TCP"

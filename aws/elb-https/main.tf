@@ -15,7 +15,7 @@ resource "aws_elb" "balancer" {
   }
 
   listener {
-    instance_port      = "${var.instance_port}"
+    instance_port      = "${var.instance_http_port}"
     instance_protocol  = "${var.instance_protocol}"
     lb_port            = 443
     lb_protocol        = "ssl"
@@ -23,7 +23,7 @@ resource "aws_elb" "balancer" {
   }
 
   listener {
-    instance_port      = "${var.instance_port}"
+    instance_port      = "${var.instance_https_port}"
     instance_protocol  = "${var.instance_protocol}"
     lb_port            = 80
     lb_protocol        = "tcp"
@@ -39,7 +39,7 @@ resource "aws_elb_attachment" "instances" {
 
 resource "aws_proxy_protocol_policy" "websockets" {
   load_balancer  = "${aws_elb.balancer.name}"
-  instance_ports = ["${var.instance_port}"]
+  instance_ports = ["${var.instance_https_port}"]
 }
 
 resource "aws_security_group" "elb" {
