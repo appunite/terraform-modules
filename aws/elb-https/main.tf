@@ -23,17 +23,17 @@ resource "aws_elb" "balancer" {
   }
 
   listener {
-    instance_port      = "${var.instance_http_port}"
-    instance_protocol  = "${var.instance_protocol}"
-    lb_port            = 80
-    lb_protocol        = "tcp"
+    instance_port     = "${var.instance_http_port}"
+    instance_protocol = "${var.instance_protocol}"
+    lb_port           = 80
+    lb_protocol       = "tcp"
   }
 }
 
 resource "aws_elb_attachment" "instances" {
   count = "${length(var.instances)}"
 
-  elb = "${aws_elb.balancer.id}"
+  elb      = "${aws_elb.balancer.id}"
   instance = "${var.instances[count.index]}"
 }
 
