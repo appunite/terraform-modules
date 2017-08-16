@@ -31,7 +31,7 @@ resource "aws_elb" "balancer" {
 }
 
 resource "aws_elb_attachment" "instances" {
-  count = "${length(var.instances)}"
+  count = "${length(var.instances) * var.enable_proxy_protocol}"
 
   elb      = "${aws_elb.balancer.id}"
   instance = "${var.instances[count.index]}"

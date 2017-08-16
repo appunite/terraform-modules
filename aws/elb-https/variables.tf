@@ -1,5 +1,4 @@
 variable "vpc_id" {}
-
 variable "name" {}
 
 variable "public_subnets" {
@@ -11,6 +10,10 @@ variable "instance_https_port" {}
 
 variable "instance_protocol" {
   default = "TCP"
+}
+
+variable "enable_proxy_protocol" {
+  default = false
 }
 
 variable "health_check_target" {}
