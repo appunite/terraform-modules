@@ -31,13 +31,15 @@ resource "aws_elb" "balancer" {
 }
 
 resource "aws_elb_attachment" "instances" {
-  count = "${length(var.instances) * (var.enable_proxy_protocol ? 1 : 0)}"
+  count = "${length(var.instances)}"
 
   elb      = "${aws_elb.balancer.id}"
   instance = "${var.instances[count.index]}"
 }
 
 resource "aws_proxy_protocol_policy" "websockets" {
+  count = "${var.enable_proxy_protocol ? 1 : 0}"
+
   load_balancer  = "${aws_elb.balancer.name}"
   instance_ports = ["${var.instance_https_port}"]
 }
