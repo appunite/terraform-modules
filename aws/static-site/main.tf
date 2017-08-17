@@ -12,6 +12,10 @@ resource "aws_s3_bucket" "server" {
 
   policy = "${data.template_file.policy.rendered}"
 
+  versioning {
+    enabled = true
+  }
+
   website {
     index_document = "${var.index_document}"
     error_document = "${var.error_document}"
