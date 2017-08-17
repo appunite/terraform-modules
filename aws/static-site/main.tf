@@ -8,7 +8,7 @@ data "template_file" "policy" {
 
 resource "aws_s3_bucket" "server" {
   bucket = "${var.name}"
-  acl    = "public-read"
+  acl    = "private"
 
   policy = "${data.template_file.policy.rendered}"
 
