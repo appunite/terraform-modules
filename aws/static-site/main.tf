@@ -1,8 +1,22 @@
-data "template_file" "policy" {
-  template = "${file("${path.module}/files/policy.json")}"
+data "aws_iam_policy_document" "policy" {
+  statement {
+    actions   = ["s3:GetObject"]
+    resources = ["${aws_s3_bucket.server.arn}/*"]
 
-  vars {
-    name = "${var.name}"
+    principals {
+      type        = "AWS"
+      identifiers = ["${aws_cloudfront_origin_access_identity.access.iam_arn}"]
+    }
+  }
+
+  statement {
+    actions   = ["s3:ListBucket"]
+    resources = ["${aws_s3_bucket.server.arn}"]
+
+    principals {
+      type        = "AWS"
+      identifiers = ["${aws_cloudfront_origin_access_identity.access.iam_arn}"]
+    }
   }
 }
 
@@ -10,7 +24,7 @@ resource "aws_s3_bucket" "server" {
   bucket = "${var.name}"
   acl    = "private"
 
-  policy = "${data.template_file.policy.rendered}"
+  policy = "${data.aws_iam_policy_document.policy.json}"
 
   website {
     index_document = "${var.index_document}"
@@ -26,7 +40,7 @@ resource "aws_cloudfront_distribution" "dist" {
     origin_id   = "origin-bucket-${aws_s3_bucket.server.id}"
 
     s3_origin_config {
-      origin_access_identity = "${aws_cloudfront_origin_access_identity.access.id}"
+      origin_access_identity = "${aws_cloudfront_origin_access_identity.access.cloudfront_access_identity_path}"
     }
   }
 
