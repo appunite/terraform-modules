@@ -26,8 +26,8 @@ resource "aws_cloudfront_distribution" "dist" {
   aliases = ["${var.from_domains}"]
 
   default_cache_behavior {
-    allowed_methods        = ["HEAD", "GET", "OPTIONS"]
-    cached_methods         = ["HEAD", "GET", "OPTIONS"]
+    allowed_methods        = ["HEAD", "GET"]
+    cached_methods         = ["HEAD", "GET"]
     viewer_protocol_policy = "allow-all"
     default_ttl            = 3600
     min_ttl                = 0
