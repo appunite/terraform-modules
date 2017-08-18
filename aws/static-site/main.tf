@@ -1,21 +1,21 @@
 data "aws_iam_policy_document" "policy" {
   statement {
     actions   = ["s3:GetObject"]
-    resources = ["arn:aws:s3:::${var.name}/*"]
+    resources = ["${aws_s3_bucket.server.arn}/*"]
 
     principals {
       type        = "AWS"
-      identifiers = ["${aws_cloudfront_origin_access_identity.access.iam_arn}"]
+      identifiers = ["*"]
     }
   }
 
   statement {
     actions   = ["s3:ListBucket"]
-    resources = ["arn:aws:s3:::${var.name}"]
+    resources = ["${aws_s3_bucket.server.arn}"]
 
     principals {
       type        = "AWS"
-      identifiers = ["${aws_cloudfront_origin_access_identity.access.iam_arn}"]
+      identifiers = ["*"]
     }
   }
 }
