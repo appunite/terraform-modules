@@ -12,7 +12,7 @@ data "aws_iam_policy_document" "policy" {
 
 resource "aws_cloudfront_origin_access_identity" "access" {}
 
-resource "aws_s3_bucket" "dummy" {
+resource "aws_s3_bucket" "server" {
   name = "${var.bucket_name}"
 
   policy = "${data.aws_iam_policy_document.policy.json}"
@@ -24,8 +24,8 @@ resource "aws_s3_bucket" "dummy" {
 
 resource "aws_cloudfront_distribution" "dist" {
   origin {
-    domain_name = "${aws_s3_bucket.dummy.bucket_domain_name}"
-    origin_id   = "origin-bucket-${aws_s3_bucket.dummy.id}"
+    domain_name = "${aws_s3_bucket.server.bucket_domain_name}"
+    origin_id   = "origin-bucket-${aws_s3_bucket.server.id}"
 
     s3_origin_config {
       origin_access_identity = "${aws_cloudfront_origin_access_identity.access.cloudfront_access_identity_path}"
