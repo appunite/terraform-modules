@@ -36,7 +36,7 @@ resource "aws_cloudfront_origin_access_identity" "access" {}
 
 resource "aws_cloudfront_distribution" "dist" {
   origin {
-    domain_name = "${aws_s3_bucket.server.bucket_domain_name}"
+    domain_name = "${aws_s3_bucket.server.website_domain}"
     origin_id   = "origin-bucket-${aws_s3_bucket.server.id}"
 
     s3_origin_config {
