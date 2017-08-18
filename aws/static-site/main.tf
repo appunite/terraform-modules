@@ -32,7 +32,9 @@ resource "aws_s3_bucket" "server" {
   }
 }
 
-resource "aws_cloudfront_origin_access_identity" "access" {}
+resource "aws_cloudfront_origin_access_identity" "access" {
+  comment = "Access for ${var.name}"
+}
 
 resource "aws_cloudfront_distribution" "dist" {
   origin {
