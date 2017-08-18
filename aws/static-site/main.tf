@@ -54,7 +54,7 @@ resource "aws_cloudfront_distribution" "dist" {
     allowed_methods        = ["HEAD", "GET", "OPTIONS"]
     cached_methods         = ["HEAD", "GET", "OPTIONS"]
     compress               = true
-    viewer_protocol_policy = "allow-all"
+    viewer_protocol_policy = "${var.viewer_protocol_policy}"
     default_ttl            = 3600
     min_ttl                = 0
     max_ttl                = 86400

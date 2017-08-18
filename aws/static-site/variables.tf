@@ -16,3 +16,7 @@ variable "index_document" {
 variable "error_document" {
   default = "error.html"
 }
+
+variable "viewer_protocol_policy" {
+  default = "redirect-to-https"
+}
