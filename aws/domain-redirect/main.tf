@@ -2,18 +2,18 @@ data "aws_iam_policy_document" "policy" {
   statement {
     actions   = ["s3:GetObject"]
     resources = ["arn:aws:s3:::${var.bucket_name}/*"]
-  }
 
-  principals {
-    type        = "AWS"
-    identifiers = ["${aws_cloudfront_origin_access_identity.access.iam_arn}"]
+    principals {
+      type        = "AWS"
+      identifiers = ["${aws_cloudfront_origin_access_identity.access.iam_arn}"]
+    }
   }
 }
 
 resource "aws_cloudfront_origin_access_identity" "access" {}
 
 resource "aws_s3_bucket" "server" {
-  name = "${var.bucket_name}"
+  bucket = "${var.bucket_name}"
 
   policy = "${data.aws_iam_policy_document.policy.json}"
 
@@ -52,6 +52,12 @@ resource "aws_cloudfront_distribution" "dist" {
       cookies {
         forward = "none"
       }
+    }
+  }
+
+  restrictions {
+    geo_restriction {
+      restriction_type = "none"
     }
   }
 
