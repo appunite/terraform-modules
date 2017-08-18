@@ -1,8 +1,8 @@
-variable "bucket_name" {}
-variable "redirect_to" {}
+variable "from" {}
+variable "to" {}
 
-variable "from_domains" {
-  type = "list"
+variable "other_domains" {
+  default = []
 }
 
 variable "acm_certificate_arn" {}

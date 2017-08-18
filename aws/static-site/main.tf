@@ -48,7 +48,7 @@ resource "aws_cloudfront_distribution" "dist" {
   is_ipv6_enabled     = true
   default_root_object = "${var.index_document}"
 
-  aliases = ["${var.aliases}"]
+  aliases = ["${var.name}", "${var.aliases}"]
 
   default_cache_behavior {
     allowed_methods        = ["HEAD", "GET", "OPTIONS"]

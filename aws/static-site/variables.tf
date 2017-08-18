@@ -6,7 +6,7 @@ variable "acm_certificate_arn" {
 }
 
 variable "aliases" {
-  type = "list"
+  default = []
 }
 
 variable "index_document" {

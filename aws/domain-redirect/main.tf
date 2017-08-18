@@ -1,9 +1,9 @@
 resource "aws_s3_bucket" "server" {
-  bucket = "${var.bucket_name}"
+  bucket = "${var.from}"
   acl = "public-read"
 
   website {
-    redirect_all_requests_to = "${var.redirect_to}"
+    redirect_all_requests_to = "${var.to}"
   }
 }
 
@@ -23,7 +23,7 @@ resource "aws_cloudfront_distribution" "dist" {
   enabled         = true
   is_ipv6_enabled = true
 
-  aliases = ["${var.from_domains}"]
+  aliases = ["${var.from}", "${var.other_domains}"]
 
   default_cache_behavior {
     allowed_methods        = ["HEAD", "GET"]
